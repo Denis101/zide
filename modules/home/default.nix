@@ -33,7 +33,9 @@ with lib; let
               editor expanded=true
               lazygit
             }
-            shell size=120 name="shell"
+            pane size=120 split_direction="horizontal" stacked=true {
+              shell name="shell"
+            }
           }
           status_bar size=1
         }
@@ -87,7 +89,9 @@ with lib; let
             editor expanded=true
             lazygit
           }
-          shell size=120 name="shell"
+          pane size=120 split_direction="horizontal" stacked=true {
+            shell name="shell"
+          }
         }
         status_bar size=1
       }
@@ -101,29 +105,33 @@ with lib; let
             mem name="mem"
           }
           pane split_direction="horizontal" {
-            proc name="proc"
-            systemd name="systemd" size=60
+            proc name="proc" size=60
+            systemd name="systemd"
           }
         }
         status_bar size=1
       }
 
       pane_template name="cpu" {
+        borderless true
         command "btop"
         args "-c" "$HOME/.config/btop/cpu.conf" "-u" "100"
       }
 
       pane_template name="net" {
+        borderless true
         command "btop"
         args "-c" "$HOME/.config/btop/net.conf" "-u" "2000"
       }
 
       pane_template name="mem" {
+        borderless true
         command "btop"
         args "-c" "$HOME/.config/btop/mem.conf" "-u" "2000"
       }
 
       pane_template name="proc" {
+        borderless true
         command "btop"
         args "-c" "$HOME/.config/btop/proc.conf"
       }
@@ -238,6 +246,7 @@ in {
         xdg.configFile."btop/cpu.conf" = {
           text = ''
             color_theme = "TTY"
+            rounded_corners = False
             theme_background = False
             truecolor = True
             shown_boxes = "cpu"
@@ -247,6 +256,7 @@ in {
         xdg.configFile."btop/mem.conf" = {
           text = ''
             color_theme = "TTY"
+            rounded_corners = False
             theme_background = False
             truecolor = True
             shown_boxes = "mem"
@@ -256,6 +266,7 @@ in {
         xdg.configFile."btop/net.conf" = {
           text = ''
             color_theme = "TTY"
+            rounded_corners = False
             theme_background = False
             truecolor = True
             shown_boxes = "net"
@@ -265,6 +276,7 @@ in {
         xdg.configFile."btop/proc.conf" = {
           text = ''
             color_theme = "TTY"
+            rounded_corners = False
             theme_background = False
             truecolor = True
             shown_boxes = "proc"
