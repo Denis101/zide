@@ -12,10 +12,10 @@ pkgs.stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/{bin,layouts,lf,yazi}
-    cp $src/bin/* $out/bin/
-    cp $src/layouts/* $out/layouts/
-    cp $src/lf/* $out/lf/
-    cp $src/yazi/* $out/yazi/
+    cp -r $src/bin/* $out/bin/
+    cp -r $src/layouts/* $out/layouts/
+    cp -r $src/lf/* $out/lf/
+    cp -r $src/yazi/* $out/yazi/
     chmod -R +x $out/bin/
   '';
 }
