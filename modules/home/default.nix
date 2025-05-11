@@ -33,8 +33,10 @@ with lib; let
               editor expanded=true
               lazygit
             }
-            pane size=120 split_direction="horizontal" stacked=true {
-              shell name="shell"
+            pane size=120 {
+              pane stacked=true {
+                shell name="shell"
+              }
             }
           }
           status_bar size=1
@@ -89,8 +91,10 @@ with lib; let
             editor expanded=true
             lazygit
           }
-          pane size=120 split_direction="horizontal" stacked=true {
-            shell name="shell"
+          pane size=120 {
+            pane split_direction="horizontal" stacked=true {
+              shell name="shell"
+            }
           }
         }
         status_bar size=1
@@ -105,7 +109,7 @@ with lib; let
             mem name="mem"
           }
           pane split_direction="horizontal" {
-            proc name="proc" size=60
+            proc name="proc" size=50
             systemd name="systemd"
           }
         }
