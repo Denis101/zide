@@ -13,6 +13,12 @@ with lib; let
       default = false;
       example = true;
     };
+
+  kdlConfigType = with types; nullOr (oneOf [path kdlType lines]);
+  kdlType = with types; let
+    valueType = nullOr (oneOf [bool int float str path (attrsOf valueType) (listOf valueType)]);
+  in
+    valueType;
 in {
   options.programs.zide = {
     enable = mkEnableOption "zide";
@@ -22,8 +28,11 @@ in {
       default = "zide/layouts";
     };
     defaultLayout = mkOption {
-      type = types.attrs;
+      type = kdlConfigType;
       default = {};
+      description = ''
+        Defines your layouts/default.kdl. Can either be a path pointing to config.kdl, a multi-line string or an attributes set representing a KDL configuration.
+      '';
     };
 
     enableBashIntegration = mkShellIntegrationOption (
