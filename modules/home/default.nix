@@ -14,7 +14,7 @@ with lib; let
       example = true;
     };
 in {
-  options = {
+  options.programs.zide = {
     enable = mkEnableOption "zide";
     package = lib.mkPackageOption pkgs "zide" {};
     layoutDir = mkOption {
@@ -43,17 +43,18 @@ in {
     shellIntegrationEnabled = (
       cfg.enableBashIntegration || cfg.enableZshIntegration || cfg.enableFishIntegration
     );
-  in {
-    home.packages = [cfg.package];
+  in
+    mkIf cfg.enable {
+      home.packages = [cfg.package];
 
-    home.sessionVariables = mkIf shellIntegrationEnabled {
-      ZIDE_LAYOUT_DIR = "$HOME/.config/${cfg.layoutDir}";
-    };
-
-    xdg.configFile."${cfg.layoutDir}/default.kdl" =
-      mkIf (cfg.defaultLayout != {})
-      {
-        text = lib.hm.generators.toKDL {} cfg.defaultLayout;
+      home.sessionVariables = mkIf shellIntegrationEnabled {
+        ZIDE_LAYOUT_DIR = "$HOME/.config/${cfg.layoutDir}";
       };
-  };
+
+      xdg.configFile."${cfg.layoutDir}/default.kdl" =
+        mkIf (cfg.defaultLayout != {})
+        {
+          text = lib.hm.generators.toKDL {} cfg.defaultLayout;
+        };
+    };
 }
