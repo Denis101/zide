@@ -39,9 +39,11 @@ with lib; let
         }
 
         tab name="shell" {
-          pane stacked=true {
+          compact_bar size=1
+          pane split_direction="horizontal" stacked=true {
             shell
           }
+          status_bar size=1
         }
 
         pane_template name="compact_bar" {
@@ -99,9 +101,11 @@ with lib; let
       }
 
       tab name="shell" {
-        pane stacked=true {
+        compact_bar size=1
+        pane split_direction="horizontal" stacked=true {
           shell
         }
+        status_bar size=1
       }
 
       tab name="sys" {
