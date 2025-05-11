@@ -46,7 +46,6 @@ in {
   in
     mkIf cfg.enable {
       home.packages = [cfg.package];
-
       home.sessionVariables = mkIf shellIntegrationEnabled {
         ZIDE_LAYOUT_DIR = "$HOME/.config/${cfg.layoutDir}";
       };
