@@ -1,0 +1,9 @@
+repos:
+  - repo: https://github.com/kamadorueda/alejandra
+    rev: 4.0.0
+    hooks:
+      - id: alejandra-system
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker
+    rev: v3.2.1
+    hooks:
+      - id: editorconfig-checker
