@@ -33,13 +33,15 @@ with lib; let
               editor expanded=true
               lazygit
             }
-            pane size=120 {
-              pane stacked=true {
-                shell name="shell"
-              }
-            }
+            shell size=120 name="shell"
           }
           status_bar size=1
+        }
+
+        tab name="shell" {
+          pane stacked=true {
+            shell
+          }
         }
 
         pane_template name="compact_bar" {
@@ -91,13 +93,15 @@ with lib; let
             editor expanded=true
             lazygit
           }
-          pane size=120 {
-            pane split_direction="horizontal" stacked=true {
-              shell name="shell"
-            }
-          }
+          shell size=120 name="shell"
         }
         status_bar size=1
+      }
+
+      tab name="shell" {
+        pane stacked=true {
+          shell
+        }
       }
 
       tab name="sys" {
