@@ -207,11 +207,11 @@ in {
   in
     mkMerge [
       (mkIf (cfg.enable) {
-        environment.sessionVariables = mkIf shellIntegrationEnabled {
+        home.packages = [pkgs.zellij cfg.package];
+        home.sessionVariables = mkIf shellIntegrationEnabled {
           ZIDE_LAYOUT_DIR = "$HOME/.config/${cfg.layoutDir}";
         };
 
-        home.packages = [pkgs.zellij cfg.package];
         programs.zellij.enable = true;
 
         xdg.configFile."${cfg.layoutDir}/default.kdl" =
