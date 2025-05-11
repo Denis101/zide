@@ -29,27 +29,34 @@ with lib; let
           }
           pane split_direction="vertical" {
             filepicker size=60 name="picker"
-            editor
+            pane stacked=true {
+              editor expanded=true
+              lazygit
+            }
             shell size=120 name="shell"
           }
           status_bar size=1
         }
 
-        pane_template name="filepicker" {
-          command "zide-pick"
+        pane_template name="compact_bar" {
+          borderless true
+          plugin location="compact-bar"
         }
 
         pane_template name="editor" {
           command "$EDITOR"
         }
 
-        pane_template name="shell" {
-          command "$SHELL"
+        pane_template name="filepicker" {
+          command "zide-pick"
         }
 
-        pane_template name="compact_bar" {
-          borderless true
-          plugin location="compact-bar"
+        pane_template name="lazygit" start_suspended=true {
+          command "lazygit"
+        }
+
+        pane_template name="shell" {
+          command "$SHELL"
         }
 
         pane_template name="status_bar" {
@@ -76,7 +83,10 @@ with lib; let
         }
         pane split_direction="vertical" {
           filepicker size=60 name="picker"
-          editor
+          pane stacked=true {
+            editor expanded=true
+            lazygit
+          }
           shell size=120 name="shell"
         }
         status_bar size=1
@@ -86,8 +96,8 @@ with lib; let
         compact_bar size=1
         pane split_direction="vertical" {
           pane split_direction="horizontal" {
-            cpu_fine name="cpu"
-            net_coarse name="net"
+            cpu name="cpu"
+            net name="net"
             mem name="mem"
           }
           pane split_direction="horizontal" {
@@ -98,17 +108,12 @@ with lib; let
         status_bar size=1
       }
 
-      pane_template name="cpu_fine" {
+      pane_template name="cpu" {
         command "btop"
         args "-c" "$HOME/.config/btop/cpu.conf" "-u" "100"
       }
 
-      pane_template name="cpu_coarse" {
-        command "btop"
-        args "-c" "$HOME/.config/btop/cpu.conf" "-u" "2000"
-      }
-
-      pane_template name="net_coarse" {
+      pane_template name="net" {
         command "btop"
         args "-c" "$HOME/.config/btop/net.conf" "-u" "2000"
       }
@@ -128,21 +133,25 @@ with lib; let
         args "-t" "-c" "systemctl" "--user" "list-units" "--type" "service" "--state" "running,failed"
       }
 
-      pane_template name="filepicker" {
-        command "zide-pick"
+      pane_template name="compact_bar" {
+        borderless true
+        plugin location="compact-bar"
       }
 
       pane_template name="editor" {
         command "$EDITOR"
       }
 
-      pane_template name="shell" {
-        command "$SHELL"
+      pane_template name="filepicker" {
+        command "zide-pick"
       }
 
-      pane_template name="compact_bar" {
-        borderless true
-        plugin location="compact-bar"
+      pane_template name="lazygit" start_suspended=true {
+        command "lazygit"
+      }
+
+      pane_template name="shell" {
+        command "$SHELL"
       }
 
       pane_template name="status_bar" {
@@ -207,7 +216,7 @@ in {
   in
     mkMerge [
       (mkIf (cfg.enable) {
-        home.packages = [pkgs.zellij cfg.package];
+        home.packages = [pkgs.lazygit pkgs.zellij cfg.package];
         home.sessionVariables = mkIf shellIntegrationEnabled {
           ZIDE_LAYOUT_DIR = "$HOME/.config/${cfg.layoutDir}";
         };
