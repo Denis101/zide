@@ -60,9 +60,13 @@ in {
       };
 
       xdg.configFile."${cfg.layoutDir}/default.kdl" =
-        mkIf (cfg.defaultLayout != {})
-        {
-          text = lib.hm.generators.toKDL {} cfg.defaultLayout;
+        if builtins.isPath cfg.defaultLayout
+        then {source = cfg.defaultLayout;}
+        else {
+          text =
+            if builtins.isAttrs cfg.defaultLayout
+            then lib.hm.generators.toKDL {} cfg.defaultLayout
+            else cfg.defaultLayout;
         };
     };
 }
